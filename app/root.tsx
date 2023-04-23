@@ -8,6 +8,7 @@ import {
 } from "@remix-run/react";
 import { LinksFunction } from "@remix-run/node";
 import tailwind from "~/tailwind.css";
+import MainNavigation from "~/components/navigation";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
@@ -24,6 +25,9 @@ export default function App() {
         <title>Q's Remix Notes App</title>
       </head>
       <body>
+        <header>
+          <MainNavigation />
+        </header>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

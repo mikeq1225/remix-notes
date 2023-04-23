@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-neutral-200;
+    @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-400 to-primary-100 min-h-screen antialiased;
   }
 }
