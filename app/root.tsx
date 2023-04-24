@@ -1,14 +1,17 @@
 import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
-import { LinksFunction } from "@remix-run/node";
 import tailwind from "~/tailwind.css";
 import MainNavigation from "~/components/navigation";
+import MainError from "~/components/MainError";
+import type { LinksFunction } from "@remix-run/node";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
@@ -29,6 +32,65 @@ export default function App() {
           <MainNavigation />
         </header>
         <Outlet />
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  // when true, this is what used to go to `CatchBoundary`
+  if (isRouteErrorResponse(error)) {
+    return (
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <Meta />
+          <Links />
+          <title>{error.statusText}</title>
+        </head>
+        <body>
+          <header>
+            <MainNavigation />
+          </header>
+          <MainError
+            linkText={"Back to Safety"}
+            header={"Oops"}
+            text={error.data?.message || "Something went wrong"}
+            status={error.status}
+          />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </html>
+    );
+  }
+
+  const defaultErrorMessage = "Unknown error";
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <Meta />
+        <Links />
+        <title>Error in Q's Remix Notes App</title>
+      </head>
+      <body>
+        <header>
+          <MainNavigation />
+        </header>
+        <MainError
+          linkText={"Back to Safety"}
+          header={"Oops"}
+          text={error instanceof Error ? error.message : defaultErrorMessage}
+        />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

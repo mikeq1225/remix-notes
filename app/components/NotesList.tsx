@@ -2,13 +2,15 @@ import type { NotesType } from "~/data/notes";
 
 export default function NotesList({ notes }: { notes: NotesType }) {
   return (
-    <div className={"max-w-5xl flex justify-center gap-4 my-8 mx-auto"}>
+    <div
+      className={"max-w-5xl flex flex-wrap justify-center gap-4 my-8 mx-auto"}
+    >
       {notes.map((note, index) => (
         // need animation and transition for article
         <article
           key={note.id}
           className={
-            "w-4/12 bg-primary-700 drop-shadow-md p-10 rounded-md hover:bg-primary-600 hover:-translate-y-1"
+            "w-[30%] bg-primary-700 drop-shadow-md p-10 rounded-md hover:bg-primary-600 hover:-translate-y-1"
           }
         >
           <header>
