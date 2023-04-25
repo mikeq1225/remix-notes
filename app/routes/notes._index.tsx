@@ -1,8 +1,6 @@
 import AddNote from "~/components/AddNote";
 import { getStoredNotes, storeNotes } from "~/data/notes";
 import { json, redirect } from "@remix-run/node";
-import type { NotesType } from "~/data/notes";
-import type { ActionArgs } from "@remix-run/node";
 import NotesList from "~/components/NotesList";
 import {
   isRouteErrorResponse,
@@ -10,6 +8,16 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import MainError from "~/components/MainError";
+import type { ActionArgs, V2_MetaFunction } from "@remix-run/node";
+import type { NotesType } from "~/data/notes";
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: "All Notes" },
+    { name: "description", content: "Manage your notes with ease" },
+    { property: "og:title", content: "All Notes" },
+  ];
+};
 
 export async function loader() {
   const notes = await getStoredNotes();

@@ -12,20 +12,29 @@ import tailwind from "~/tailwind.css";
 import MainNavigation from "~/components/navigation";
 import MainError from "~/components/MainError";
 import type { LinksFunction } from "@remix-run/node";
+import type { V2_MetaFunction } from "@remix-run/node";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwind },
 ];
 
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: `Q's Remix Notes App` },
+    { name: "description", content: "Remix app for organizing notes" },
+    { property: "og:title", content: `Q's Remix Notes App` },
+    { property: "charSet", content: "utf-8" },
+    { property: "viewport", content: "width=device-width,initial-scale=1" },
+  ];
+};
+
 export default function App() {
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
-        <title>Q's Remix Notes App</title>
+        <title></title>
       </head>
       <body>
         <header>
