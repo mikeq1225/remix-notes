@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 
-interface Note {
+export interface Note {
   id: string;
   title: string;
   content: string;
